@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">EndlessList</string>
+    <string name="name">name</string>
+    <string name="affiliation">affiliation</string>
+    <string name="species">species</string>
+    <string name="sex">sex</string>
+</resources>

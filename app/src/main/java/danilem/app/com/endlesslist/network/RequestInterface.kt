@@ -1,0 +1,11 @@
+package danilem.app.com.endlesslist.network
+
+import danilem.app.com.endlesslist.model.ElephantData
+import io.reactivex.Observable
+import retrofit2.http.GET
+
+interface RequestInterface {
+
+    @GET("/elephants")
+    fun getData() : Observable<List<ElephantData>>
+}
