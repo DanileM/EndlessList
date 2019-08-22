@@ -1,28 +1,32 @@
 package danilem.app.com.endlesslist.ui
 
-import android.view.View
+import android.content.Context
 import danilem.app.com.endlesslist.model.ElephantData
-import danilem.app.com.endlesslist.util.UiUtil
+import danilem.app.com.endlesslist.repository.ElephantRepository
+import danilem.app.com.endlesslist.util.disposeBy
 import io.reactivex.disposables.CompositeDisposable
 
-class ElephantPresenter : ElephantView {
+class ElephantPresenter(private val elephantRepository: ElephantRepository) {
 
     private val disposable = CompositeDisposable()
-    private val uiUtil: UiUtil? = null
-    private var view: View? = null
+    private var view: ElephantView? = null
 
-    open fun attachView(view: View) {
+    open fun attachView(view: ElephantView) {
         this.view = view
     }
 
-    open fun detachView(view: View) {
+    open fun detachView(view: ElephantView) {
+        disposable.clear()
         if (this.view == view) {
             this.view = null
         }
     }
-    override fun showAllElephants(data: List<ElephantData>) {
-        if (uiUtil?.isNetworkAvailable()!!) {
 
-        }
+    fun getAllElephants() {
+        elephantRepository.getElephantData().subscribe({
+            view?.showAllElephants(it)
+        }, {
+            view?.showError(it.localizedMessage)
+        }).disposeBy(disposable)
     }
 }

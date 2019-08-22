@@ -4,4 +4,5 @@ import danilem.app.com.endlesslist.model.ElephantData
 
 interface ElephantView {
     fun showAllElephants(data: List<ElephantData>)
+    fun showError(error: String)
 }
